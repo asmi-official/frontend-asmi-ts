@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  frontend:
+    build: .
+    container_name: frontend-asmi
+    ports:
+      - '3000:80'
+    environment:
+      - VITE_API_BASE_URL=http://backend:8000/api
+    restart: unless-stopped
+
+  # backend:
+  #   image: backend-image
+  #   container_name: backend
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - ENV_VAR=value
