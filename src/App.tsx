@@ -7,6 +7,8 @@ import DashboardPage from './page/Dashboard/dashboard';
 import StockProduct from './page/Product/product';
 import ManagementMoney from './page/Management/management';
 import NotFound from './page/notfound';
+import Login from './page/Login';
+import Register from './page/Registrasi';
 
 function App() {
   return (
@@ -15,8 +17,9 @@ function App() {
       <Router>
         <Routes>
           {/* Default route → redirect ke dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           {/* Dashboard layout tanpa username & role */}
           <Route
             path="/dashboard"
