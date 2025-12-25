@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   Home as HomeIcon,
   Inventory2 as ArchiveXIcon,
-  AttachMoney as BanknoteIcon,
+  Inventory as InventoryIcon,
+  // AttachMoney as BanknoteIcon,
   Settings as SettingsIcon,
   AccountCircle as UserCircleIcon,
   Logout as LogOutIcon,
@@ -11,7 +12,11 @@ import {
   AllInbox as PackageIcon,
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
+  Folder as FolderIcon,
+  QrCode as QrCodeScannerIcon,
+  Construction as ConstructionIcon,
 } from '@mui/icons-material';
+
 import {
   Box,
   Drawer,
@@ -35,9 +40,13 @@ type MenuItem = {
 const menuItems: MenuItem[] = [
   { text: 'Dashboard', icon: <HomeIcon />, path: '/dashboard' },
   { text: 'Stok Produk', icon: <ArchiveXIcon />, path: '/product' },
-  { text: 'Keuangan', icon: <BanknoteIcon />, path: '/keuangan' },
+  { text: 'Order', icon: <InventoryIcon />, path: '/product' },
+  // { text: 'Keuangan', icon: <BanknoteIcon />, path: '/keuangan' },
+  { text: 'Generate QR', icon: <QrCodeScannerIcon />, path: '/messege' },
+  { text: 'Gdrive', icon: <FolderIcon />, path: '/' },
+  { text: 'Config Marketplace', icon: <ConstructionIcon />, path: '/' },
   {
-    text: 'Pengaturan',
+    text: 'Setting',
     icon: <SettingsIcon />,
     children: [
       { text: 'Profil', icon: <UserCircleIcon />, path: '/profil' },

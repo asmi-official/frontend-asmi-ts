@@ -1,5 +1,5 @@
 import {
-  DollarSign,
+  // DollarSign,
   Package,
   ShoppingCart,
   Users,
@@ -11,13 +11,13 @@ import {
 
 export default function DashboardPage() {
   const stats = [
-    {
-      title: 'Total Pendapatan',
-      value: 'Rp 125.4M',
-      change: '+12.5%',
-      trend: 'up',
-      icon: DollarSign,
-    },
+    // {
+    //   title: 'Total Pendapatan',
+    //   value: 'Rp 125.4M',
+    //   change: '+12.5%',
+    //   trend: 'up',
+    //   icon: DollarSign,
+    // },
     {
       title: 'Total Produk',
       value: '2',
@@ -33,7 +33,7 @@ export default function DashboardPage() {
       icon: ShoppingCart,
     },
     {
-      title: 'Total Pelanggan',
+      title: 'Total Order',
       value: '320',
       change: '+15.3%',
       trend: 'up',

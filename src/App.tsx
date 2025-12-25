@@ -4,11 +4,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 import DashboardLayout from './components/Dashboard/DashboardLayout';
 import DashboardPage from './page/Dashboard/dashboard';
-import StockProduct from './page/Product/product';
 import ManagementMoney from './page/Management/management';
 import NotFound from './page/notfound';
 import Login from './page/Login';
 import Register from './page/Registrasi';
+import ListProduct from './page/Product/list';
+import OrderSecretList from './page/OrderSecret/OrderSecretList';
 
 function App() {
   return (
@@ -33,7 +34,15 @@ function App() {
             path="/product"
             element={
               <DashboardLayout>
-                <StockProduct />
+                <ListProduct />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/messege"
+            element={
+              <DashboardLayout>
+                <OrderSecretList />
               </DashboardLayout>
             }
           />
