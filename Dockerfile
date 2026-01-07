@@ -1,29 +1,22 @@
-# Stage 1: Build
-FROM node:20-alpine AS builder
+# Development Dockerfile dengan Hot Reload
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy package.json & package-lock.json / pnpm-lock.yaml
-COPY package*.json ./
-
 # Install dependencies
-RUN npm install
+RUN apk add --no-cache libc6-compat
 
-# Copy semua source code
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm ci
+
+# Copy source code
 COPY . .
 
-# Build aplikasi
-RUN npm run build
+# Expose Vite dev server port
+EXPOSE 5173
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
-
-# Copy hasil build dari stage 1
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy konfigurasi nginx (opsional, jika perlu custom)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Start development server dengan hot reload
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

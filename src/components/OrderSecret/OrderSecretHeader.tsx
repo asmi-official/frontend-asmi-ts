@@ -43,12 +43,30 @@ export default function OrderSecretHeader({ viewMode, onChange }: Props) {
           exclusive
           value={viewMode}
           onChange={(_, v) => v && onChange(v)}
+          sx={{
+            '& .MuiToggleButton-root': {
+              color: 'white',
+              borderColor: 'rgba(255, 255, 255, 0.3)',
+              '&:hover': {
+                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+              },
+              '&.Mui-selected': {
+                bgcolor: 'rgba(255, 255, 255, 0.2)',
+                color: 'white',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
+                '&:hover': {
+                  bgcolor: 'rgba(255, 255, 255, 0.25)',
+                },
+              },
+            },
+          }}
         >
           <ToggleButton value="table">
-            <TableViewIcon />
+            <TableViewIcon sx={{ color: 'white' }} />
           </ToggleButton>
           <ToggleButton value="grid">
-            <GridViewIcon />
+            <GridViewIcon sx={{ color: 'white' }} />
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>

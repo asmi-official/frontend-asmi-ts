@@ -60,6 +60,15 @@ const theme = createTheme({
     },
   },
   components: {
+    // Ensure MUI components work with Tailwind
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          margin: 0,
+          padding: 0,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

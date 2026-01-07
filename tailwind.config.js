@@ -42,5 +42,10 @@ export default {
     },
   },
   plugins: [],
+  // Important selector untuk override MUI styles ketika menggunakan Tailwind
   important: '#root',
+  // Disable preflight agar tidak konflik dengan MUI CssBaseline
+  corePlugins: {
+    preflight: false,
+  },
 };

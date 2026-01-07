@@ -1,5 +1,5 @@
-import type { GridColumn } from '../../components/Grid/DataGridCard';
-import type { Product } from './type';
+import type { GridColumn } from '../Grid/DataGridCard';
+import type { Product } from './types';
 
 export const gridColumnsProduct: GridColumn<Product>[] = [
   {

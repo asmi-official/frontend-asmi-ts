@@ -1,9 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Box } from '@mui/material';
-import OrderSecretHeader from './OrderSecretHeader';
-import OrderSecretTable from './OrderSecretTable';
-import OrderSecretGrid from './OrderSecretGrid';
-import type { OrderFromBE } from './types';
+import DashboardLayout from '../../components/Dashboard/DashboardLayout';
+import {
+  OrderSecretHeader,
+  OrderSecretTable,
+  OrderSecretGrid,
+} from '../../components/OrderSecret';
+import type { OrderFromBE } from '../../components/OrderSecret';
 
 const DUMMY_FROM_BE: OrderFromBE[] = [
   {
@@ -16,7 +19,7 @@ const DUMMY_FROM_BE: OrderFromBE[] = [
   },
 ];
 
-export default function OrderSecretList() {
+function OrderSecretListContent() {
   const [viewMode, setViewMode] = useState<'table' | 'grid'>('table');
   const orders = useMemo(() => DUMMY_FROM_BE, []);
 
@@ -26,5 +29,13 @@ export default function OrderSecretList() {
       {viewMode === 'table' && <OrderSecretTable data={orders} />}
       {viewMode === 'grid' && <OrderSecretGrid data={orders} />}
     </Box>
+  );
+}
+
+export default function OrderSecretList() {
+  return (
+    <DashboardLayout>
+      <OrderSecretListContent />
+    </DashboardLayout>
   );
 }

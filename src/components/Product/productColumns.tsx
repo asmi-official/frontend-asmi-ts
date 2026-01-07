@@ -1,5 +1,5 @@
-import type { Product } from './type';
-import type { Column } from '../../components/Table/DataTable';
+import type { Product } from './types';
+import type { Column } from '../Table/DataTable';
 import { Typography, Avatar, IconButton, Box } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';

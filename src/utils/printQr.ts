@@ -6,7 +6,28 @@ export const printQr = (orderNumber: string) => {
     return;
   }
 
-  const img = canvas.toDataURL('image/png');
+  // Buat canvas baru dengan resolusi sangat tinggi untuk print HD
+  const scale = 8; // 8x resolusi untuk kualitas super HD
+  const tempCanvas = document.createElement('canvas');
+  const ctx = tempCanvas.getContext('2d');
+
+  if (!ctx) return;
+
+  // Set dimensi canvas dengan scale tinggi
+  tempCanvas.width = canvas.width * scale;
+  tempCanvas.height = canvas.height * scale;
+
+  // Disable semua smoothing untuk pixel-perfect
+  ctx.imageSmoothingEnabled = false;
+  ctx.imageSmoothingQuality = 'high';
+
+  // Scale dan draw dengan nearest-neighbor
+  ctx.scale(scale, scale);
+  ctx.drawImage(canvas, 0, 0);
+
+  // Convert ke PNG dengan kualitas maksimal (1.0)
+  const img = tempCanvas.toDataURL('image/png', 1.0);
+
   const win = window.open('', '_blank');
   if (!win) return;
 
@@ -15,6 +36,10 @@ export const printQr = (orderNumber: string) => {
       <head>
         <title>Print QR - ${orderNumber}</title>
         <style>
+          @media print {
+            @page { margin: 0; }
+            body { margin: 0.5cm; }
+          }
           body {
             margin:0;
             display:flex;
@@ -22,21 +47,32 @@ export const printQr = (orderNumber: string) => {
             align-items:center;
             height:100vh;
             font-family:Segoe UI, sans-serif;
+            background:#fff;
           }
           .box {
             text-align:center;
-            padding:40px;
-            border-radius:20px;
-            border:1px solid #eee;
+            padding:20px;
           }
-          img { width:250px; height:250px; }
-          .id { font-size:24px; font-weight:700; color:#7C2D3E; }
+          img {
+            width:300px;
+            height:300px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            display:block;
+            margin:0 auto;
+          }
+          .order {
+            font-size:11px;
+            color:#666;
+            margin:10px 0 0 0;
+            letter-spacing:0.5px;
+          }
         </style>
       </head>
       <body>
         <div class="box">
-          <img src="${img}" />
-          <p class="id">${orderNumber}</p>
+          <img src="${img}" alt="QR Code" />
+          <p class="order">${orderNumber}</p>
         </div>
         <script>
           window.onload = () => {

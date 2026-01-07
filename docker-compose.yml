@@ -1,18 +1,35 @@
 version: '3.9'
-services:
-  frontend:
-    build: .
-    container_name: frontend-asmi
-    ports:
-      - '3000:80'
-    environment:
-      - VITE_API_BASE_URL=http://backend:8000/api
-    restart: unless-stopped
 
-  # backend:
-  #   image: backend-image
-  #   container_name: backend
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     - ENV_VAR=value
+services:
+  frontend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frontend-asmi-dev
+    ports:
+      - '5173:5173'
+    volumes:
+      # Mount source code untuk hot reload
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./index.html:/app/index.html
+      - ./vite.config.ts:/app/vite.config.ts
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.app.json:/app/tsconfig.app.json
+      - ./tsconfig.node.json:/app/tsconfig.node.json
+      - ./tailwind.config.js:/app/tailwind.config.js
+      - ./postcss.config.js:/app/postcss.config.js
+      # Exclude node_modules
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - asmi-network
+    stdin_open: true
+    tty: true
+
+networks:
+  asmi-network:
+    driver: bridge
+    name: asmi-network

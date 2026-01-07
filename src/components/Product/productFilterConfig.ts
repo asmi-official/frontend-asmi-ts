@@ -1,5 +1,5 @@
-import type { FilterConfig } from '../../components/Table/DataTableFilter';
-import type { Product } from './type';
+import type { FilterConfig } from '../Table/DataTableFilter';
+import type { Product } from './types';
 
 export const filterConfigs: FilterConfig<Product>[] = [
   {

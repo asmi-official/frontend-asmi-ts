@@ -1,4 +1,4 @@
-import DataTable from '../../components/Table/DataTable';
+import DataTable from '../Table/DataTable';
 import type { OrderFromBE } from './types';
 import { orderColumns } from './orderColumns';
 
