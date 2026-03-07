@@ -13,6 +13,9 @@ import GDrivePage from './page/Gdrive/gdrive';
 import ConfigMarketplace from './page/config/config-marketplace';
 import ListOrderPage from './page/Order/list';
 import Profile from './page/Profile/profile';
+import ShowProduct from './page/Product/show';
+import CreateProduct from './page/Product/create';
+import EditProduct from './page/Product/edit';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
           {/* Pages with DashboardLayout (layout handled inside each page) */}
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/product" element={<ListProduct />} />
+          <Route path="/product/:id" element={<ShowProduct />} />
+          <Route path="/product/create" element={<CreateProduct />} />
+          <Route path="/product/:id/edit" element={<EditProduct />} />
           <Route path="/order" element={<ListOrderPage />} />
           <Route path="/messege" element={<OrderSecretList />} />
           <Route path="/keuangan" element={<ManagementMoney />} />

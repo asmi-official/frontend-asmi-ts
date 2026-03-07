@@ -14,6 +14,12 @@ export const filterConfigs: FilterConfig<Product>[] = [
     type: 'text',
     operators: ['contains', 'startsWith', 'endsWith'],
   },
+   {
+    key: 'description',
+    label: 'Deskripsi',
+    type: 'text',
+    operators: ['contains', 'startsWith', 'endsWith'],
+  },
   {
     key: 'category',
     label: 'Kategori',
@@ -23,12 +29,6 @@ export const filterConfigs: FilterConfig<Product>[] = [
       { label: 'Women', value: 'Women' },
       { label: 'Unisex', value: 'Unisex' },
     ],
-  },
-  {
-    key: 'brand',
-    label: 'Brand',
-    type: 'text',
-    operators: ['contains', 'startsWith', 'endsWith'],
   },
   {
     key: 'price',
@@ -41,6 +41,12 @@ export const filterConfigs: FilterConfig<Product>[] = [
     label: 'Stok',
     type: 'number',
     operators: ['equals', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
+  },
+  {
+    key: 'type_product',
+    label: 'Tipe Produk',
+    type: 'text',
+    operators: ['equals', 'contains', 'startsWith'],
   },
   {
     key: 'status',

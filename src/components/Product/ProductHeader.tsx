@@ -8,24 +8,22 @@ import {
   Chip,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import InventoryIcon from '@mui/icons-material/Inventory2';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import GridViewIcon from '@mui/icons-material/GridView';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductHeaderProps {
   viewMode: 'list' | 'grid';
   onViewModeChange: (mode: 'list' | 'grid') => void;
-  onAddStock?: () => void;
-  onAddProduct?: () => void;
 }
 
 export default function ProductHeader({
   viewMode,
   onViewModeChange,
-  onAddStock,
-  onAddProduct,
 }: ProductHeaderProps) {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -153,35 +151,9 @@ export default function ProductHeader({
           </ToggleButtonGroup>
 
           <Button
-            variant="outlined"
-            startIcon={<InventoryIcon />}
-            onClick={onAddStock}
-            sx={{
-              color: 'white',
-              borderColor: 'rgba(255, 255, 255, 0.3)',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              px: 2.5,
-              fontWeight: 600,
-              textTransform: 'none',
-              borderRadius: 2,
-              transition: 'all 0.3s ease',
-              fontSize: { xs: '0.8rem', sm: '0.875rem' },
-              '&:hover': {
-                borderColor: 'rgba(255, 255, 255, 0.5)',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-              },
-            }}
-          >
-            Add Stock
-          </Button>
-
-          <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={onAddProduct}
+            onClick={() => navigate('/product/create')}
             sx={{
               backgroundColor: 'white',
               color: '#7C2D3E',
