@@ -8,13 +8,17 @@ interface DataGridCardContainerProps<T> {
   data: T[];
   columns: GridColumn<T>[];
 
-  getImage?: (row: T) => string | undefined;
+  getImage?: (row: T) => { url: string; alt?: string }[] | string | undefined;
   getTitle: (row: T) => string;
   getSubTitle?: (row: T) => string | undefined;
   getStatus?: (row: T) => {
     label: string;
     color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error';
   };
+
+  onView?: (row: T) => void;
+  onEdit?: (row: T) => void;
+  onDelete?: (row: T) => void;
 
   searchKeys?: (keyof T)[];
 }
@@ -26,6 +30,9 @@ export default function DataGridCardContainer<T extends Record<string, unknown>>
   getTitle,
   getSubTitle,
   getStatus,
+  onView,
+  onEdit,
+  onDelete,
   searchKeys = [],
 }: DataGridCardContainerProps<T>) {
   const [search, setSearch] = useState('');
@@ -63,6 +70,9 @@ export default function DataGridCardContainer<T extends Record<string, unknown>>
         getTitle={getTitle}
         getSubTitle={getSubTitle}
         getStatus={getStatus}
+        onView={onView}
+        onEdit={onEdit}
+        onDelete={onDelete}
       />
     </Box>
   );

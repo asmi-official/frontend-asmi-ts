@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Home as HomeIcon,
   Inventory2 as ArchiveXIcon,
@@ -64,8 +64,19 @@ type DashboardLayoutProps = {
 export default function DashboardLayout({ children, userName = 'User' }: DashboardLayoutProps) {
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
-  const [activeMenu, setActiveMenu] = useState('Dashboard');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    menuItems.forEach((item) => {
+      if (item.children) {
+        const isChildActive = item.children.some((child) => child.path === location.pathname);
+        if (isChildActive) {
+          setOpenMenus((prev) => ({ ...prev, [item.text]: true }));
+        }
+      }
+    });
+  }, [location.pathname]);
 
   const toggleMenu = (text: string) => {
     setOpenMenus((prev) => ({ ...prev, [text]: !prev[text] }));
@@ -75,7 +86,6 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
     if (item.children) {
       toggleMenu(item.text);
     } else if (item.path) {
-      setActiveMenu(item.text);
       navigate(item.path);
     }
   };
@@ -281,7 +291,7 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
               <Tooltip title={!drawerOpen ? item.text : ''} placement="right">
                 <ListItemButton
                   onClick={() => handleMenuClick(item)}
-                  selected={activeMenu === item.text && !item.children}
+                  selected={!!item.path && location.pathname === item.path}
                   sx={{
                     color: 'white',
                     borderRadius: 2,
@@ -417,10 +427,9 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
                             },
                           },
                         }}
-                        selected={activeMenu === child.text}
+                        selected={!!child.path && location.pathname === child.path}
                         onClick={() => {
                           if (child.path) {
-                            setActiveMenu(child.text);
                             navigate(child.path);
                           }
                         }}

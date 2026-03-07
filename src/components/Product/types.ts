@@ -2,7 +2,7 @@ export interface Product extends Record<string, unknown> {
   id: string;
   sku?: string; // kode produk
   name: string; // nama produk
-  image?: string; // URL gambar
+  image?: ProductImage[]; // URL gambar
   category?: string; // kategori
   brand?: string; // merk
   description?: string; // deskripsi singkat
@@ -16,4 +16,9 @@ export interface Product extends Record<string, unknown> {
   status?: 'active' | 'inactive' | 'out_of_stock';
   created_at?: string;
   updated_at?: string;
+}
+
+interface ProductImage {
+  url: string;
+  alt?: string;
 }

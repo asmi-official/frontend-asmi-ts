@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DataTable from '../Table/DataTable';
 import type { FilterItem } from '../Table/DataTable';
-import { columnsProduct } from './productColumns';
+import { createColumnsProduct } from './productColumns';
 import { filterConfigs } from './productFilterConfig';
 import type { Product } from './types';
 
@@ -12,10 +13,11 @@ interface ProductTableProps {
 export default function ProductTable({ data }: ProductTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [, setFilters] = useState<FilterItem[]>([]);
+  const navigate = useNavigate();
 
   return (
     <DataTable<Product>
-      columns={columnsProduct}
+      columns={createColumnsProduct(navigate)}
       data={data}
       emptyMessage="Belum ada produk"
       enableFilter
