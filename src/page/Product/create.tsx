@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Paper } from '@mui/material';
+import { Box, Typography, Paper, IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DashboardLayout from '../../components/Dashboard/DashboardLayout';
 import FormProduct from '../../components/Product/FormProduct';
 import type { FormProductValues } from '../../components/Product/formProductConfig';
@@ -14,18 +15,20 @@ function CreateProductPage() {
         formState: { errors },
     } = useForm<FormProductValues>({
         defaultValues: {
-            name: '',
+            product_name: '',
             sku: '',
             category: '',
-            type_product: '',
+            product_type: '',
             description: '',
-            price: '',
-            cost_price: '',
-            stock: '',
-            min_stock: '',
-            unit: '',
+            selling_price: '',
+            cogs: '',
+            on_hand_qty: '',
+            reorder_point: '',
+            uom: '',
             brand: '',
             images: [],
+            qty_per_carton: '',
+            carton_stock: '',
         },
     });
 
@@ -37,14 +40,19 @@ function CreateProductPage() {
 
     return (
         <Box>
-
-            <Typography variant="h6" fontWeight={700} sx={{ mb: 3 }}>
-                Tambah Produk Baru
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+                <IconButton onClick={() => navigate('/product')} sx={{ color: '#7C2D3E' }}>
+                    <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h6" fontWeight={700}>
+                    Tambah Produk Baru
+                </Typography>
+            </Box>
 
             <Paper sx={{ p: 3, borderRadius: 3, border: '1px solid', borderColor: 'divider' }}>
                 <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                     <FormProduct
+                        action='CREATE'
                         control={control}
                         errors={errors}
                         onCancel={() => navigate('/product')}

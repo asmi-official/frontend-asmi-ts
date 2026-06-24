@@ -9,7 +9,7 @@ export const gridColumnsProduct: GridColumn<Product>[] = [
   },
   {
     key: 'stock',
-    render: (value, row) => `Stok: ${value} ${row.unit}`,
+    render: (value, row) => `On-Hand: ${value} ${row.unit ?? ''}`,
   },
   {
     key: 'category',

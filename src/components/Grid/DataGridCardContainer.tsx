@@ -19,6 +19,7 @@ interface DataGridCardContainerProps<T> {
   onView?: (row: T) => void;
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
+  onDiscount?: (row: T) => void;
 
   searchKeys?: (keyof T)[];
 }
@@ -33,6 +34,7 @@ export default function DataGridCardContainer<T extends Record<string, unknown>>
   onView,
   onEdit,
   onDelete,
+  onDiscount,
   searchKeys = [],
 }: DataGridCardContainerProps<T>) {
   const [search, setSearch] = useState('');
@@ -73,6 +75,7 @@ export default function DataGridCardContainer<T extends Record<string, unknown>>
         onView={onView}
         onEdit={onEdit}
         onDelete={onDelete}
+        onDiscount={onDiscount}
       />
     </Box>
   );

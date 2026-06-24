@@ -1,15 +1,16 @@
 import type { Product } from './types';
 import type { Column } from '../Table/DataTable';
-import { Typography, Avatar, IconButton, Box } from '@mui/material';
+import { Typography, Avatar, IconButton, Box, Tooltip, Chip } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import type { NavigateFunction } from 'react-router-dom';
 
-export const createColumnsProduct = (navigate: NavigateFunction): Column<Product>[] => [
+export const createColumnsProduct = (navigate: NavigateFunction, onDiscount?: (product: Product) => void, onDelete?: (id: string) => void): Column<Product>[] => [
   {
     id: 'image',
-    label: 'Gambar',
+    label: 'Image',
     minWidth: 80,
     align: 'center',
     format: (value, row) => {
@@ -34,7 +35,7 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
   },
   {
     id: 'name',
-    label: 'Nama Produk',
+    label: 'Product Name',
     minWidth: 220,
     format: (value) => (
       <Typography variant="body2" fontWeight={500}>
@@ -44,7 +45,7 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
   },
   {
     id: 'description',
-    label: 'Deskripsi',
+    label: 'Description',
     minWidth: 220,
     format: (value) => (
       <Typography
@@ -59,13 +60,13 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
   },
   {
     id: 'category',
-    label: 'Kategori',
+    label: 'Category',
     minWidth: 150,
     format: (value) => <Typography variant="body2">{value ? String(value) : '-'}</Typography>,
   },
   {
     id: 'price',
-    label: 'Harga',
+    label: 'Selling Price',
     minWidth: 130,
     align: 'right',
     format: (value) => {
@@ -79,14 +80,14 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
   },
   {
     id: 'stock',
-    label: 'Stok',
+    label: 'On-Hand Qty',
     minWidth: 100,
     align: 'center',
     format: (value) => <Typography variant="body2">{Number(value)}</Typography>,
   },
   {
     id: 'type_product',
-    label: 'Tipe Produk',
+    label: 'Product Type',
     minWidth: 100,
     align: 'center',
     format: (value) => <Typography variant="body2">{String(value)}</Typography>,
@@ -100,9 +101,9 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
       if (!value) return '-';
 
       const map: Record<NonNullable<Product['status']>, string> = {
-        active: 'Aktif',
-        inactive: 'Nonaktif',
-        out_of_stock: 'Stok Habis',
+        active: 'Active',
+        inactive: 'Inactive',
+        out_of_stock: 'Out of Stock',
       };
 
       return (
@@ -111,49 +112,76 @@ export const createColumnsProduct = (navigate: NavigateFunction): Column<Product
     },
   },
   {
+    id: 'discount',
+    label: 'Discount',
+    minWidth: 100,
+    align: 'center',
+    format: (_value, row) => {
+      const discount = row.discount as { percentage: number } | undefined;
+      if (!discount) return <Typography variant="body2" color="text.disabled">-</Typography>;
+      return <Chip label={`-${discount.percentage}%`} size="small" sx={{ bgcolor: '#7C2D3E', color: '#fff', fontWeight: 700, fontSize: 11, height: 20 }} />;
+    },
+  },
+  {
+    id: 'discount',
+    label: 'Start Date',
+    minWidth: 120,
+    align: 'center',
+    format: (_value, row) => {
+      const discount = row.discount as { start_date: string } | undefined;
+      if (!discount) return <Typography variant="body2" color="text.disabled">-</Typography>;
+      return <Typography variant="body2">{new Date(discount.start_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</Typography>;
+    },
+  },
+  {
+    id: 'discount',
+    label: 'Expire Date',
+    minWidth: 120,
+    align: 'center',
+    format: (_value, row) => {
+      const discount = row.discount as { end_date: string } | undefined;
+      if (!discount) return <Typography variant="body2" color="text.disabled">-</Typography>;
+      return <Typography variant="body2">{new Date(discount.end_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}</Typography>;
+    },
+  },
+  {
     id: 'created_at',
-    label: 'Dibuat',
+    label: 'Created Date',
     minWidth: 130,
     align: 'center',
     format: (value) => (value ? new Date(String(value)).toLocaleDateString('id-ID') : '-'),
   },
   {
     id: 'actions',
-    label: 'Aksi',
+    label: 'Actions',
     minWidth: 120,
     align: 'center',
     format: (_value, row) => {
       return (
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
-          <IconButton
-            size="small"
-            aria-label="view"
-            onClick={() => {
-              navigate(`/product/${row.id}`);
-            }}
-          >
-            <VisibilityOutlinedIcon fontSize="small" />
-          </IconButton>
+          <Tooltip title="View detail">
+            <IconButton size="small" aria-label="view" sx={{ color: '#2563EB' }} onClick={() => navigate(`/product/${row.id}`)}>
+              <VisibilityOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            size="small"
-            aria-label="edit"
-            onClick={() => {
-              navigate(`/product/${row.id}/edit`);
-            }}
-          >
-            <EditOutlinedIcon fontSize="small" />
-          </IconButton>
+          <Tooltip title="Edit product">
+            <IconButton size="small" aria-label="edit" sx={{ color: '#D97706' }} onClick={() => navigate(`/product/${row.id}/edit`)}>
+              <EditOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            size="small"
-            aria-label="delete"
-            onClick={() => {
-              console.log('Delete product:', row.id);
-            }}
-          >
-            <DeleteOutlineOutlinedIcon fontSize="small" />
-          </IconButton>
+          <Tooltip title="Create discount">
+            <IconButton size="small" aria-label="discount" sx={{ color: '#7C2D3E' }} onClick={() => onDiscount?.(row)}>
+              <LocalOfferOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Delete product">
+            <IconButton size="small" aria-label="delete" sx={{ color: '#DC2626' }} onClick={() => onDelete?.(row.id)}>
+              <DeleteOutlineOutlinedIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </Box>
       );
     },

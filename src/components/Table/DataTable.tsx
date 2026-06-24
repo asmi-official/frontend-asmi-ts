@@ -71,7 +71,6 @@ export default function DataTable<T extends Record<string, unknown>>({
   rowsPerPageOptions = [5, 10, 25, 50],
   onRowClick,
   emptyMessage = 'Tidak ada data',
-  stickyHeader = true,
   enableFilter = false,
   filterConfigs,
   onFiltersApplied,
@@ -114,46 +113,46 @@ export default function DataTable<T extends Record<string, unknown>>({
     ? filteredData
     : searchValue
       ? filteredData.filter((row) => {
-          // Search across all columns
-          return columns.some((column) => {
-            const value = row[column.id as keyof T];
-            if (value === null || value === undefined) return false;
-            return String(value).toLowerCase().includes(searchValue.toLowerCase());
-          });
-        })
+        // Search across all columns
+        return columns.some((column) => {
+          const value = row[column.id as keyof T];
+          if (value === null || value === undefined) return false;
+          return String(value).toLowerCase().includes(searchValue.toLowerCase());
+        });
+      })
       : filteredData;
 
   // Handle sorting (only for client-side)
   const sortedData = serverSide
     ? searchedData
     : [...searchedData].sort((a, b) => {
-        if (!orderBy) return 0;
+      if (!orderBy) return 0;
 
-        const aValue = a[orderBy];
-        const bValue = b[orderBy];
+      const aValue = a[orderBy];
+      const bValue = b[orderBy];
 
-        if (aValue === null || aValue === undefined) return 1;
-        if (bValue === null || bValue === undefined) return -1;
+      if (aValue === null || aValue === undefined) return 1;
+      if (bValue === null || bValue === undefined) return -1;
 
-        let comparison = 0;
-        if (typeof aValue === 'string' && typeof bValue === 'string') {
-          comparison = aValue.toLowerCase().localeCompare(bValue.toLowerCase());
-        } else if (typeof aValue === 'number' && typeof bValue === 'number') {
-          comparison = aValue - bValue;
-        } else {
-          comparison = String(aValue).localeCompare(String(bValue));
-        }
+      let comparison = 0;
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        comparison = aValue.toLowerCase().localeCompare(bValue.toLowerCase());
+      } else if (typeof aValue === 'number' && typeof bValue === 'number') {
+        comparison = aValue - bValue;
+      } else {
+        comparison = String(aValue).localeCompare(String(bValue));
+      }
 
-        return order === 'asc' ? comparison : -comparison;
-      });
+      return order === 'asc' ? comparison : -comparison;
+    });
 
   // Paginated data (only for client-side)
   const paginatedData = serverSide
     ? data
     : sortedData.slice(
-        currentPage * currentRowsPerPage,
-        currentPage * currentRowsPerPage + currentRowsPerPage,
-      );
+      currentPage * currentRowsPerPage,
+      currentPage * currentRowsPerPage + currentRowsPerPage,
+    );
 
   // Total count
   const totalRecords = serverSide && totalCount !== undefined ? totalCount : sortedData.length;
@@ -284,8 +283,8 @@ export default function DataTable<T extends Record<string, unknown>>({
       {/* Table wrapper with overflow - Hanya table yang scroll */}
       <Box sx={{ maxWidth: '100vw', overflowX: 'auto' }}>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: 600 }}>
-            <Table stickyHeader={stickyHeader} aria-label="data table" sx={{ minWidth: 650 }}>
+          <TableContainer>
+            <Table stickyHeader={false} aria-label="data table" sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
                   {columns.map((column) => (

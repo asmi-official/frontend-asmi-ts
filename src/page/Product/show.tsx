@@ -22,11 +22,23 @@ const DUMMY_PRODUCT: Product = {
   ],
   category: 'Man',
   type_product: 'Premium',
+  brand: 'ASMI',
+  unit: 'pcs',
   description: 'Parfum ASMI Original dengan aroma yang khas dan tahan lama.',
   price: 150000,
+  cost_price: 90000,
   stock: 25,
+  min_stock: 5,
+  qty_per_carton: 24,
+  carton_stock: 10,
   status: 'active',
   created_at: '2024-01-10',
+  discount: {
+    name: 'Diskon Lebaran 2025',
+    percentage: 20,
+    start_date: '2025-03-20',
+    end_date: '2025-04-05',
+  },
 };
 
 function ShowProduct() {

@@ -59,6 +59,12 @@ const DUMMY_PRODUCTS: Product[] = [
     stock: 3,
     status: 'active',
     created_at: '2024-02-05',
+    discount: {
+      name: 'Flash Sale',
+      percentage: 15,
+      start_date: '2025-06-01',
+      end_date: '2025-06-30',
+    },
   },
   {
     id: '3',

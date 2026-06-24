@@ -91,7 +91,7 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#f5f7fa' }}>
+    <Box sx={{ display: 'flex', bgcolor: '#f5f7fa' }}>
       {/* Sidebar */}
       <Drawer
         variant="permanent"
@@ -108,6 +108,9 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
             boxShadow: '4px 0 24px rgba(139, 0, 0, 0.3)',
             transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             overflow: 'hidden',
+            position: 'sticky',
+            top: 0,
+            height: '100vh',
           },
         }}
       >
@@ -462,7 +465,7 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
       </Drawer>
 
       {/* Main content */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         {/* Top Header Bar */}
         <Box
           sx={{
@@ -499,9 +502,8 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
         {/* Main Content Area */}
         <Box
           sx={{
-            flex: 1,
             p: 3,
-            overflow: 'auto',
+            overflowX: 'hidden',
             bgcolor: '#f5f7fa',
           }}
         >

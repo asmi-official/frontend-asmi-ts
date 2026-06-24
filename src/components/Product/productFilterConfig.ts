@@ -10,19 +10,19 @@ export const filterConfigs: FilterConfig<Product>[] = [
   },
   {
     key: 'name',
-    label: 'Nama Produk',
+    label: 'Product Name',
     type: 'text',
     operators: ['contains', 'startsWith', 'endsWith'],
   },
-   {
+  {
     key: 'description',
-    label: 'Deskripsi',
+    label: 'Description',
     type: 'text',
     operators: ['contains', 'startsWith', 'endsWith'],
   },
   {
     key: 'category',
-    label: 'Kategori',
+    label: 'Category',
     type: 'select',
     options: [
       { label: 'Man', value: 'Man' },
@@ -32,19 +32,19 @@ export const filterConfigs: FilterConfig<Product>[] = [
   },
   {
     key: 'price',
-    label: 'Harga',
+    label: 'Selling Price',
     type: 'number',
     operators: ['equals', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
   },
   {
     key: 'stock',
-    label: 'Stok',
+    label: 'On-Hand Qty',
     type: 'number',
     operators: ['equals', 'greaterThan', 'lessThan', 'greaterThanOrEqual', 'lessThanOrEqual'],
   },
   {
     key: 'type_product',
-    label: 'Tipe Produk',
+    label: 'Product Type',
     type: 'text',
     operators: ['equals', 'contains', 'startsWith'],
   },
@@ -53,14 +53,14 @@ export const filterConfigs: FilterConfig<Product>[] = [
     label: 'Status',
     type: 'select',
     options: [
-      { label: 'Aktif', value: 'active' },
-      { label: 'Nonaktif', value: 'inactive' },
-      { label: 'Stok Habis', value: 'out_of_stock' },
+      { label: 'Active', value: 'active' },
+      { label: 'Inactive', value: 'inactive' },
+      { label: 'Out of Stock', value: 'out_of_stock' },
     ],
   },
   {
     key: 'created_at',
-    label: 'Tanggal Dibuat',
+    label: 'Created Date',
     type: 'date',
   },
 ];

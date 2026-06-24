@@ -1,25 +1,28 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography, Paper, CircularProgress } from '@mui/material';
+import { Box, Typography, Paper, CircularProgress, IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DashboardLayout from '../../components/Dashboard/DashboardLayout';
 import FormProduct from '../../components/Product/FormProduct';
 import type { FormProductValues } from '../../components/Product/formProductConfig';
 
 // TODO: ganti dengan API call sesungguhnya
 const DUMMY_PRODUCT: FormProductValues = {
-    name: 'ASMI Noir Edition',
+    product_name: 'ASMI Noir Edition',
     sku: 'ASMI-PRF-001',
     category: 'Man',
-    type_product: 'Exclusive',
+    product_type: 'Exclusive',
     description: 'Parfum eksklusif dengan aroma oud dan musk yang tahan lama.',
-    price: 350000,
-    cost_price: 180000,
-    stock: 42,
-    min_stock: 10,
-    unit: 'pcs',
+    selling_price: 350000,
+    cogs: 180000,
+    on_hand_qty: 42,
+    reorder_point: 10,
+    uom: 'pcs',
     brand: 'ASMI',
     images: [],
+    qty_per_carton: 24,
+    carton_stock: 5,
 };
 
 function EditProductPage() {
@@ -33,18 +36,20 @@ function EditProductPage() {
         formState: { errors, isLoading },
     } = useForm<FormProductValues>({
         defaultValues: {
-            name: '',
+            product_name: '',
             sku: '',
             category: '',
-            type_product: '',
+            product_type: '',
             description: '',
-            price: '',
-            cost_price: '',
-            stock: '',
-            min_stock: '',
-            unit: '',
+            selling_price: '',
+            cogs: '',
+            on_hand_qty: '',
+            reorder_point: '',
+            uom: '',
             brand: '',
             images: [],
+            qty_per_carton: '',
+            carton_stock: '',
         },
     });
 
@@ -71,13 +76,19 @@ function EditProductPage() {
 
     return (
         <Box>
-            <Typography variant="h6" fontWeight={700} sx={{ mb: 3 }}>
-                Edit Produk
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
+                <IconButton onClick={() => navigate('/product')} sx={{ color: '#7C2D3E' }}>
+                    <ArrowBackIcon />
+                </IconButton>
+                <Typography variant="h6" fontWeight={700}>
+                    Edit Produk
+                </Typography>
+            </Box>
 
             <Paper sx={{ p: 3, borderRadius: 3, border: '1px solid', borderColor: 'divider' }}>
                 <Box component="form" onSubmit={handleSubmit(onSubmit)}>
                     <FormProduct
+                        action='EDIT'
                         control={control}
                         errors={errors}
                         onCancel={() => navigate(`/product/${id}`)}
