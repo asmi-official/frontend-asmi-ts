@@ -31,6 +31,8 @@ import {
   Tooltip,
 } from '@mui/material';
 
+import Logo from '../../assets/Logo.png';
+
 type MenuItem = {
   text: string;
   icon: React.ReactNode;
@@ -142,16 +144,17 @@ export default function DashboardLayout({ children, userName = 'User' }: Dashboa
                 sx={{
                   width: 42,
                   height: 42,
-                  borderRadius: 2,
-                  background: 'rgba(255, 255, 255, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
                 }}
               >
-                <PackageIcon sx={{ fontSize: 26, color: 'white' }} />
+                <Box
+                  component="img"
+                  src={Logo}
+                  alt="ASMI Logo"
+                  sx={{ width: 84, height: 84, objectFit: 'contain' }}
+                />
               </Box>
               <Box>
                 <Typography variant="h6" fontWeight={800} sx={{ letterSpacing: '-0.5px' }}>
